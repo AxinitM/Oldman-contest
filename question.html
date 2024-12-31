@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Старик, how old are you?</title>
+    <link rel="icon" type="image/x-icon" href="favicon-32x32.png" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* colors */
+            --bgColor: #74bf74;
+            --mainBlockColor: #013201;
+            --headerColor: #013201;
+            --textColor: #ffffff;
+
+            /* fonts */
+            --mainFont: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        /* General sets */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: var(--bgColor);
+            margin: 0 auto;
+            height: 100vh;
+            font-size: 16px;
+            color: var(--textColor);
+            font-family: var(--mainFont);
+            overflow: auto;
+        }
+
+        header {
+            margin: 50px auto;
+            color: var(--headerColor);
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        /* main section */
+
+        #main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 80%;
+            height: auto;
+            margin: 15px;
+            padding: 15px;
+            background-color: var(--mainBlockColor);
+            color: var(--textColor);
+            border-radius: 5px;
+        }
+
+        h3 {
+            margin: 15px;
+            font-size: 2rem;
+            letter-spacing: 1.2px;
+            text-align: center;
+        }
+
+        .answers-container {
+            font-weight: normal;
+            margin: 25px;
+        }
+
+        .answers-container p {
+            font-size: 1.3rem;
+            margin: 0;
+            padding: 10px;
+            margin-left: 15px;
+        }
+
+        .answers-container strong {
+            font-weight: bold;
+            color: var(--bgColor);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: var(--mainFont);
+            background-color: var(--bgColor);
+            color: var(--headerColor);
+            font-weight: 700;
+            border: none;
+            border-radius: 5px;
+        }
+
+        /* Table section */
+
+        .correct-answers-table {
+            width: 40%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        caption {
+            font-size: 1.2rem;
+            margin: 0 auto 25px;
+        }
+
+        .correct-answers-table th, .correct-answers-table td {
+            padding: 10px;
+            border: 1px solid #fff;
+            font-size: 1rem;
+        }
+
+        .correct-answers-table th {
+            background-color: var(--bgColor);
+        }
+
+        .correct-answers-table td {
+            font-weight: bold;
+        }
+
+        .correct-answers-table td span {
+            color: var(--bgColor);
+        }
+
+        /*  media  */
+        
+        @media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+
+    header {
+        margin: 10px auto;
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin: 15px auto;
+    }
+
+    #main-container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+       
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 15px;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Старик, <br/> how old are you?</h1>
+    </header>
+    <main id="main-container">
+        <h3 id="question"></h3>
+        <div class="answers-container" id="answers">
+            <p><strong>A.</strong></p>
+            <p><strong>B.</strong></p>
+            <p><strong>C.</strong></p>
+            <p><strong>D.</strong></p>
+        </div>
+        <button id="next-button">Следующий вопрос</button>
+    </main>
+
+    <script>
+        const questions = [
+            {
+                question: "1. Что такое 'скуф'?",
+                answers: [
+                    "Это звук, когда ты стукнул себя табуреткой по пальцу.",
+                    "Это шапка, которую кто-то неправильно назвал, потому что язык заплёлся.",
+                    "Скуф — это модное ругательство, как «лоханка», только круче.",
+                    "Парень, который слишком сильно старается быть крутым, но получается не очень.",
+                ]
+            },
+            {
+                question: "2. Что такое 'шипперить'?",
+                answers: [
+                    "Нести сумки на почту и возвращаться через три часа уставшим и злым.",
+                    "Тайно надеяться, что двое из твоего любимого сериала поженятся.",
+                    "Собирать кораблики в бутылке в свободное время.",
+                    "Настоящая любовь — это когда муж воду после себя из-под пельменей вылил."
+                ]
+            },
+            {
+                question: "3. Что такое 'тюбик'?",
+                answers: [
+                    "Это прозвище любителей — YouTube",
+                    "Человек, который живёт в маленькой квартире, как в тюбике зубной пасты.",
+                    "Тюбик — это термин для слишком модной обуви, которую никто не понимает.",
+                    "Малыш, который уронил фломастер и решил его облизать."
+                ]
+            },
+            {
+                question: "4. Что значит 'краш'?",
+                answers: [
+                    "Краш — человек, из-за которого даже борщ пересолила, потому что задумалась.",
+                    "Это то, что осталось от твоего телефона после встречи с асфальтом.",
+                    "Это состояние, когда сосед сверху снова что-то ремонтирует.",
+                    "Это экспериментальный вид каши: крест между гречкой и рисом."
+                ]
+            },
+            {
+                question: "5. Что такое 'зумер'?",
+                answers: [
+                    "Это когда твой будильник орёт так, что соседи уже завидуют.",
+                    "Это молодой человек, который смотрит на VHS-кассету как на артефакт из музея.",
+                    "Человек, который всё время кричит 'Ну как так-то?'.",
+                    "Это дети, которые родились уже с планшетом в руках."
+                ]
+            },
+            {
+                question: "6. Что такое 'чиллить'?",
+                answers: [
+                    "Это танцевать чечётку, но в более расслабленном режиме.",
+                    "Чиллить — это лежать, ничего не делать и считать, что ты занят.",
+                    "Пытаться расслабиться, пока тебя не разбудит звонок от налоговой.",
+                    "Новый метод охлаждать пельмени: просто выложить их на балкон зимой."
+                ]
+            },
+            {
+                question: "7. Что такое 'крinge'?",
+                answers: [
+                    "Это когда твой батя пытается танцевать тикток-популярные танцы.",
+                    "Крinge — состояние при виде цен в супермаркете.",
+                    "Прилагательное, используемое молодежью по любому поводу.",
+                    "Это новый вкус чипсов: кислый, сладкий и очень странный."
+                ]
+            },
+            {
+                question: "8. Что такое 'милфа'?",
+                answers: [
+                    "Это рецепт нового коктейля с малиновым вкусом.",
+                    "Милфа — слово из передачи про чудеса природы. Ну типа манул, но интересней.",
+                    "Женщина, которая такая красивая и молодая, что её возраст никто не считает.",
+                    "Это новый бренд молока — «Молоко Идеальное Лёгкое Фермерское ААА-класса»."
+                ]
+            }
+        ];
+
+        const correctAnswers = ['C', 'B', 'B', 'A', 'D', 'B', 'A', 'C'];
+
+        let currentQuestionIndex = 0;
+
+        const questionElement = document.getElementById("question");
+        const answersElement = document.getElementById("answers");
+        const nextButton = document.getElementById("next-button");
+
+        // Функция для отображения следующего вопроса
+        function displayQuestion(index) {
+            const currentQuestion = questions[index];
+            questionElement.textContent = currentQuestion.question;
+            answersElement.innerHTML = currentQuestion.answers
+                .map((answer, i) => `<p><strong>${String.fromCharCode(65 + i)}.</strong> ${answer}</p>`)
+                .join("");
+        }
+
+        // Функция для отображения правильных ответов в виде таблицы
+        function displayCorrectAnswers() {
+            const tableHTML = `
+                <table class="correct-answers-table">
+                    <caption>Правильные ответы</caption>
+                    <thead>
+                        <tr>
+                            <th>Вопрос</th>
+                            <th>Ответ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${correctAnswers.map((answer, index) => `
+                            <tr>
+                                <td><strong>${index + 1}</strong></td>
+                                <td><span>${answer}</span></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            document.getElementById("main-container").innerHTML = tableHTML;
+        }
+
+        // Обработчик для кнопки "Следующий вопрос"
+        nextButton.addEventListener("click", () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion(currentQuestionIndex);
+            } else {
+                displayCorrectAnswers();
+            }
+        });
+
+        // Инициализация первого вопроса
+        displayQuestion(currentQuestionIndex);
+    </script>
+</body>
+
+</html>
